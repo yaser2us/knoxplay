@@ -35,10 +35,12 @@ import Menu from "@src/@core/components/input/Menu"
 import Pagination from "@src/@core/components/input/Pagination"
 import Steps from "@src/@core/components/input/Steps"
 
+
 import Input from "@components/input"
 // ** Styles
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
+import { Bar } from 'react-chartjs-2'
 
 const EcommerceDashboard = () => {
   // ** Context
@@ -49,51 +51,45 @@ const EcommerceDashboard = () => {
 
   return (
     <div id='dashboard-ecommerce'>
-      <Row className='match-height'>
-        <Col xl='4' md='6' xs='12'>
-          {/* Put components after here to see examples all */}
-          <Input/>
-          <CardMedal />
-        </Col>
-        <Col xl='8' md='6' xs='12'>
-          <StatsCard cols={{ xl: '3', sm: '6' }} />
-        </Col>
-      </Row>
-      <Row className='match-height'>
-        <Col lg='4' md='12'>
-          <Row className='match-height'>
-            <Col lg='6' md='3' xs='6'>
-              <OrdersBarChart warning={colors.warning.main} />
-            </Col>
-            <Col lg='6' md='3' xs='6'>
-              <ProfitLineChart info={colors.info.main} />
-            </Col>
-            <Col lg='12' md='6' xs='12'>
-              <Earnings success={colors.success.main} />
-            </Col>
-          </Row>
-        </Col>
-        <Col lg='8' md='12'>
-          <RevenueReport primary={colors.primary.main} warning={colors.warning.main} />
-        </Col>
-      </Row>
-      <Row className='match-height'>
-        <Col lg='8' xs='12'>
-          <CompanyTable />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardMeetup />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardBrowserStates colors={colors} trackBgColor={trackBgColor} />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <GoalOverview success={colors.success.main} />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardTransactions />
-        </Col>
-      </Row>
+
+<Space direction="vertical">
+<h1>Button</h1>
+<Button/>
+
+<h1>Title</h1>
+<Title/>
+
+<h1>Divider</h1>
+<Divider/>
+
+<h1>Grid</h1>
+<Grid/>
+
+<h1>Layout</h1>
+<Layout/>
+
+<h1>Space</h1>
+<Space/>
+
+<h1>Anchor</h1>
+<Anchor/>
+
+<h1>Breadcrumb</h1>
+<Breadcrumb/>
+
+<h1>Dropdown</h1>
+<Dropdown/>
+
+<h1>Menu</h1>
+<Menu/>
+
+<h1>Pagination</h1>
+<Pagination/>
+
+<h1>Steps</h1>
+<Steps/>
+
+</Space>
     </div>
   )
 }

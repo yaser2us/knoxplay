@@ -8,6 +8,7 @@ const App = () => {
     <Suspense fallback={null}>
       <Router />
     </Suspense>
+    
   )
 }
 
