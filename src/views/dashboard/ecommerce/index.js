@@ -20,6 +20,21 @@ import CardTransactions from '@src/views/ui-elements/cards/advance/CardTransacti
 import ProfitLineChart from '@src/views/ui-elements/cards/statistics/ProfitLineChart'
 import CardBrowserStates from '@src/views/ui-elements/cards/advance/CardBrowserState'
 
+// **AntD Components
+import Button from '@src/@core/components/input/Button'
+import Title from '@src/@core/components/input/Title'
+import { Divider } from 'antd'
+import Grid from "@src/@core/components/input/Grid"
+import Layout from "@src/@core/components/input/Layout"
+import { Space } from 'antd'
+
+import Anchor from "@src/@core/components/input/Anchor"
+import Breadcrumb from "@src/@core/components/input/Breadcrumb"
+import Dropdown from "@src/@core/components/input/Dropdown"
+import Menu from "@src/@core/components/input/Menu"
+import Pagination from "@src/@core/components/input/Pagination"
+import Steps from "@src/@core/components/input/Steps"
+
 import Input from "@components/input"
 // ** Styles
 import '@styles/react/libs/charts/apex-charts.scss'
