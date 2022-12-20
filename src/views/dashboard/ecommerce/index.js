@@ -21,22 +21,43 @@ import ProfitLineChart from '@src/views/ui-elements/cards/statistics/ProfitLineC
 import CardBrowserStates from '@src/views/ui-elements/cards/advance/CardBrowserState'
 
 // **AntD Components
-import Button from '@src/@core/components/input/Button'
-import Title from '@src/@core/components/input/Title'
+//General
+import Button from '@src/@core/components/input/general/Button'
+
+//Layout
+import Title from '@src/@core/components/input/general/Title'
 import { Divider } from 'antd'
-import Grid from "@src/@core/components/input/Grid"
-import Layout from "@src/@core/components/input/Layout"
+import Grid from "@src/@core/components/input/layout/Grid"
+import Layout from "@src/@core/components/input/layout/Layout"
 import { Space } from 'antd'
 
-import Anchor from "@src/@core/components/input/Anchor"
-import Breadcrumb from "@src/@core/components/input/Breadcrumb"
-import Dropdown from "@src/@core/components/input/Dropdown"
-import Menu from "@src/@core/components/input/Menu"
-import Pagination from "@src/@core/components/input/Pagination"
-import Steps from "@src/@core/components/input/Steps"
+//Navigation
+import Anchor from "@src/@core/components/input/navigation/Anchor"
+import Breadcrumb from "@src/@core/components/input/navigation/Breadcrumb"
+import Dropdown from "@src/@core/components/input/navigation/Dropdown"
+import Menu from "@src/@core/components/input/navigation/Menu"
+import Pagination from "@src/@core/components/input/navigation/Pagination"
+import Steps from "@src/@core/components/input/navigation/Steps"
 
+//Data Entry
+import AutoComplete from "@src/@core/components/input/dataEntry/AutoComplete"
+import Cascader from "@src/@core/components/input/dataEntry/Cascader"
+import Checkbox from "@src/@core/components/input/dataEntry/Checkbox"
+import DatePicker from "@src/@core/components/input/dataEntry/DatePicker"
+import Form from "@src/@core/components/input/dataEntry/Form"
+import Input from "@src/@core/components/input/dataEntry/Input"
+import InputNumber from "@src/@core/components/input/dataEntry/InputNumber"
+import Mentions from "@src/@core/components/input/dataEntry/Mentions"
+import Radio from "@src/@core/components/input/dataEntry/Radio"
+import Rate from "@src/@core/components/input/dataEntry/Rate"
+import Select from "@src/@core/components/input/dataEntry/Select"
+import Slider from "@src/@core/components/input/dataEntry/Slider"
+import Switch from "@src/@core/components/input/dataEntry/Switch"
+import TimePicker from "@src/@core/components/input/dataEntry/TimePicker"
+import Transfer from "@src/@core/components/input/dataEntry/Transfer"
+import TreeSelect from "@src/@core/components/input/dataEntry/TreeSelect"
+import Upload from "@src/@core/components/input/dataEntry/Upload"
 
-import Input from "@components/input"
 // ** Styles
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
@@ -53,12 +74,19 @@ const EcommerceDashboard = () => {
     <div id='dashboard-ecommerce'>
 
 <Space direction="vertical">
+
+
+<h1>**********[GENERAL]**********</h1>
+
 <h1>Button</h1>
 <Button/>
 
 <h1>Title</h1>
 <Title/>
 
+
+
+<h1>**********[LAYOUT]**********</h1>
 <h1>Divider</h1>
 <Divider/>
 
@@ -69,8 +97,9 @@ const EcommerceDashboard = () => {
 <Layout/>
 
 <h1>Space</h1>
-<Space/>
 
+
+<h1>**********[NAVIGATION]**********</h1>
 <h1>Anchor</h1>
 <Anchor/>
 
@@ -88,6 +117,61 @@ const EcommerceDashboard = () => {
 
 <h1>Steps</h1>
 <Steps/>
+
+<h1>**********[DATA ENTRY]**********</h1>
+<h1>Auto Complete</h1>
+<AutoComplete/>
+
+<h1>Cascader</h1>
+<Cascader/>
+
+<h1>Checkbox</h1>
+<Checkbox/>
+
+<h1>Date Picker</h1>
+<DatePicker/>
+
+<h1>Form</h1>
+<Form/>
+
+<h1>Input</h1>
+<Input/>
+
+<h1>Input Number</h1>
+<InputNumber/>
+
+<h1>Mentions</h1>
+<Mentions/>
+
+<h1>Radio</h1>
+<Radio/>
+
+<h1>Rate</h1>
+<Rate/>
+
+<h1>Select</h1>
+<Select/>
+
+<h1>Slider</h1>
+<Slider/>
+
+<h1>Switch</h1>
+<Switch/>
+
+<h1>TimePicker</h1>
+<TimePicker/>
+
+<h1>Transfer</h1>
+<Transfer/>
+
+<h1>TreeSelect</h1>
+<TreeSelect/>
+
+<h1>Upload</h1>
+<Upload/>
+
+
+
 
 </Space>
     </div>

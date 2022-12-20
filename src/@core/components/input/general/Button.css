@@ -1,4 +1,4 @@
-.ant-btn{
+.ant-btn, .ant-btn-primary:not(:disabled):hover{
     color: white;
     background: #7367f0; 
     border-color: #7367f0; 
@@ -22,3 +22,4 @@
     box-shadow: 0 0 10px 1px rgb(115 103 240 / 70%);
     border-color: #7367f0; 
   }
+
