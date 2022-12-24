@@ -67,11 +67,185 @@ import TimePicker from "@src/@core/components/input/dataEntry/TimePicker"
 import Transfer from "@src/@core/components/input/dataEntry/Transfer"
 import TreeSelect from "@src/@core/components/input/dataEntry/TreeSelect"
 import Upload from "@src/@core/components/input/dataEntry/Upload"
+import Dynamo from "@src/@core/dyno"
 
 // ** Styles
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
 import { Bar } from 'react-chartjs-2'
+
+const sample110 = {
+  root: {
+    name: "root",
+    items: ["header", "whatsYourName", "container", "dataSource"],
+    visible: true,
+  },
+  whatsYourName: {
+    id: "whatsYourName",
+    type: "text",
+    name: "whatsYourName",
+    label: "Whats Your Name buddy? ${wathchMei}",
+    // label: (props) => (values) => `hi hi from f(x) ;)`,
+    value: "",
+    // disabled: (props) => (values) => Valid('wathchMei', '==', '90')(values),
+    visible: true,
+    rule: {
+      required: "I dont know your name yet hmmmmm.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: 3,
+        message: "min 3",
+      },
+      maxLength: {
+        value: 3,
+        message: "max 3",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+      validate212121: {
+        positiveNumber: "only positive number pls yeah :)",
+        lessThanHundred: "cant be less than hundred ;)",
+      },
+      validateCompse: {
+        letsComposeValidation: {
+          positiveNumber: "only positive number pls yeah :)",
+          lessThanHundred: "cant be less than hundred ;)"
+        }
+      },
+      deps: ["wathchMei"],
+      validate2121: {
+        positiveNumber: (value) => {
+          console.log(value, 'positiveNumber validatevalidatevalidatevalidate')
+          const result = parseFloat(value) > 0;
+          return result && result || "errororororororororoo"
+        },
+        lessThanHundred: (value) => {
+          console.log(value, 'lessThanHundred validatevalidatevalidatevalidate')
+          return parseFloat(value) < 200 || "less than 200"
+        },
+      },
+      validate1234: [
+        {
+          messages: "",
+          validation: "fxPositiveNumber"
+        }
+      ]
+    },
+    watch: false
+  },
+  "container": {
+    id: "container",
+    type: "fieldset",
+    name: "container",
+    label: "Fieldset",
+    value: "",
+    visible: true,
+    items: ["wathchMei", "howAreYouThen", "submitME"],
+  },
+  submitME: {
+    id: "submitME",
+    type: "button",
+    name: "submitME",
+    label: "Button",
+    value: "",
+    disabled: "fxtriggerBackground()",
+    visible: true,
+  },
+  "howAreYouThen": {
+    id: "howAreYouThen",
+    type: "select",
+    name: "howAreYouThen",
+    label: "wathchMei",
+    options: "dataSource",
+    visible: true,
+    rule: {
+      required: "Transfer select hello From Bank is required.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: null,
+        message: "",
+      },
+      maxLength: {
+        value: null,
+        message: "",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+    },
+    preCondition: [
+
+    ]
+  },
+  "header": {
+    id: "header",
+    type: "label",
+    name: "header",
+    label: "Example of Watch & DataSource",
+    value: "Value",
+    visible: true,
+  },
+  "dataSource": {
+    id: "dataSource",
+    type: "dataSource",
+    name: "dataSource",
+    label: "wathchMei",
+    value: "Value",
+    visible: true,
+    watch: true
+  },
+  wathchMei: {
+    id: "wathchMei",
+    type: "text",
+    name: "wathchMei",
+    label: "watch me ;)",
+    value: "",
+    valueType: "",
+    visible: true,
+    disabled: false,
+    rule: {
+      required: "Transfer From Bank is required.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: null,
+        message: "",
+      },
+      maxLength: {
+        value: null,
+        message: "",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+    },
+    watch: true
+  },
+};
 
 const EcommerceDashboard = () => {
   // ** Context
@@ -88,6 +262,14 @@ const EcommerceDashboard = () => {
       <CardBody>
         <Form>
           <Row>
+          <Dynamo
+          // dataStore={data.dataHelper}
+          dynoName={`data._id`}
+          key={`data._id`}
+          // defaultValues={data.defaultValues}
+          fields={sample110}
+          localFunction={{}}
+        />
             <Col sm='12' className='mb-1'>
               <Title />
               <Select />
