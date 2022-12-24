@@ -6,10 +6,10 @@ const onChange = e => {
   console.log(`checked = ${e.target.checked}`)
 }
 
-function Checkbox1(){ 
-return(
-<Checkbox onChange={onChange}>Checkbox</Checkbox>
-);
+function Checkbox1() {
+  return (
+    <Checkbox onChange={onChange}>Checkbox</Checkbox>
+  );
 };
 
 export default Checkbox1;

@@ -1,28 +1,34 @@
 import React from 'react';
 import { Typography } from 'antd';
+import {
+  Label,
+} from 'reactstrap'
+const { Title: AntTitle } = Typography;
 
-const { Title } = Typography;
+function Title({ label }) {
 
-function Title1() {
+  // return (
+  //   <Label className='form-label' for='nameVerticalIcons'>
+  //     First Name
+  //   </Label>
+  // )
 
-    return(
-  <>
-    <Title
-    style={{
-        fontWeight:"500",
-        fontFamily:"Montserrat, Helvetica, Arial, Serif",
-        fontSize:"1.285rem",
-        lineHeight:"1.2",
-        color:"#5e5873",
-
-        display:"block",
-
-
-    }}
-    >h1. Ant Design Title
-    </Title>
-  </>
-);
+  return (
+    <>
+      <AntTitle
+        style={{
+          fontWeight: "500",
+          fontFamily: "Montserrat, Helvetica, Arial, Serif",
+          fontSize: "1.285rem",
+          lineHeight: "1.2",
+          color: "#5e5873",
+          display: "block",
+        }}
+      >
+        h1. Ant Design Title
+      </AntTitle>
+    </>
+  );
 }
 
-export default Title1;
+export default Title;
