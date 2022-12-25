@@ -2,43 +2,22 @@ import React from "react"
 import { Select as AntSelect } from "antd"
 
 
-const handleChange = value => {
-  console.log(`selected ${value}`)
-}
-
 function Select({ item, field, managedCallback, ...rest }) {
   if (!item) return;
-  const { label, placeholder, name } = item;
+  const { label, placeholder, name, options, defaultValue } = item;
+  if(!options) return;
   const { onChange, value } = field;
   return (
     <>
-            <label className='form-label' for={name}>
+      <label className='form-label' for={name}>
         {label}
       </label>
       <div className="input-group">
         <AntSelect
-          defaultValue="lucy"
-          style={{ width: 120 }}
+          defaultValue={defaultValue}
+          style={{ width: '100%' }}
           onChange={onChange}
-          options={[
-            {
-              value: "jack",
-              label: "Jack"
-            },
-            {
-              value: "lucy",
-              label: "Lucy"
-            },
-            {
-              value: "disabled",
-              disabled: true,
-              label: "Disabled"
-            },
-            {
-              value: "Yiminghe",
-              label: "yiminghe"
-            }
-          ]}
+          options={options}
         />
       </div>
 

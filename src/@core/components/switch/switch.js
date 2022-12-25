@@ -1,5 +1,5 @@
 import React from 'react';
-import './Switch.css';
+import './style.css';
 import { Switch as AntSwitch } from 'antd';
 
 function Switch({ item, field, managedCallback, ...rest }) {

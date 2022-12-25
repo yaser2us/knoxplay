@@ -1,5 +1,5 @@
-import { Input as AntInput } from "antd"
+import Input from "./input";
 
-const Input = (props) => <AntInput {...props} />
-
-export default Input;
+export {
+    Input
+};

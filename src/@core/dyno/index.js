@@ -6,22 +6,24 @@ import { FormBuilderV4 as DynoBuilder } from "dynamo";
 //Data Entry
 import AutoComplete from "@src/@core/components/input/dataEntry/AutoComplete"
 import Cascader from "@src/@core/components/input/dataEntry/Cascader"
-import Checkbox from "@src/@core/components/input/dataEntry/Checkbox"
+import { Checkbox } from "@src/@core/components/checkbox"
 import DatePicker from "@src/@core/components/input/dataEntry/DatePicker"
 // import {Form as MyForm} from "@src/@core/components/input/dataEntry/Form"
-import Input from "@src/@core/components/input/dataEntry/Input"
+import { Input } from "@src/@core/components/input"
 import InputNumber from "@src/@core/components/input/dataEntry/InputNumber"
 import Mentions from "@src/@core/components/input/dataEntry/Mentions"
-import Radio from "@src/@core/components/input/dataEntry/Radio"
+import { Radio } from "@src/@core/components/radio"
 import Rate from "@src/@core/components/input/dataEntry/Rate"
-import Select from "@src/@core/components/input/dataEntry/Select"
+import { Select } from "@src/@core/components/select"
 import Slider from "@src/@core/components/input/dataEntry/Slider"
-import Switch from "@src/@core/components/input/dataEntry/Switch"
+import { Switch } from "@src/@core/components/switch"
 import TimePicker from "@src/@core/components/input/dataEntry/TimePicker"
 import Transfer from "@src/@core/components/input/dataEntry/Transfer"
 import TreeSelect from "@src/@core/components/input/dataEntry/TreeSelect"
 import Upload from "@src/@core/components/input/dataEntry/Upload"
-import Button from '@src/@core/components/input/general/Button'
+import { Button } from '@src/@core/components/button'
+import { Title } from '@src/@core/components/label'
+import { Container } from '@src/@core/components/container'
 
 const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction = {}, defaultValues, dynoName }) => {
     const [data, setData] = useState();
@@ -41,7 +43,8 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
 
     // <div className="inputContainer">{children}</div>
 
-    const renderContainer = (children) => children;
+    const renderContainer = (children) => <div sm='12' className='mb-1'>
+        {children} </div>
 
     const validationResolver = {
         noteq: async (item, value) => {
@@ -61,10 +64,12 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
     const newComponents = {
         "text": (props) => <Input {...props} />,
         "select": (props) => <Select {...props} />,
-        "fieldset": (props) => <div>{props.child}</div>,
+        "fieldset": (props) => <Container {...props} />,
         "button": (props) => <Button {...props} />,
         "checkbox": (props) => <Checkbox {...props} />,
-        "radio": (props) => <Radio {...props} />,
+        "radiobox": (props) => <Radio {...props} />,
+        "switch": (props) => <Switch {...props} />,
+        "label": (props) => <Title {...props} />,
     };
 
     //   const itemsRefs = useRef({});

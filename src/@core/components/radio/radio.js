@@ -1,6 +1,6 @@
 import React from "react"
 import { Radio as AntRadio } from "antd"
-import "./Radio.css"
+import "./style.css"
 
 
 function Radio({ item, field, ...rest }) {

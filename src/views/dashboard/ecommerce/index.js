@@ -1,6 +1,6 @@
 // ** React Imports
-import { useContext } from 'react'
-
+import { useEffect, useState } from 'react'
+import axios from "axios";
 // ** Reactstrap Imports
 import {
   Row,
@@ -55,12 +55,12 @@ import Cascader from "@src/@core/components/input/dataEntry/Cascader"
 import Checkbox from "@src/@core/components/input/dataEntry/Checkbox"
 import DatePicker from "@src/@core/components/input/dataEntry/DatePicker"
 // import {Form as MyForm} from "@src/@core/components/input/dataEntry/Form"
-import Input from "@src/@core/components/input/dataEntry/Input"
+import { Input } from "@src/@core/components/input"
 import InputNumber from "@src/@core/components/input/dataEntry/InputNumber"
 import Mentions from "@src/@core/components/input/dataEntry/Mentions"
 import Radio from "@src/@core/components/input/dataEntry/Radio"
 import Rate from "@src/@core/components/input/dataEntry/Rate"
-import Select from "@src/@core/components/input/dataEntry/Select"
+import { Select } from "@src/@core/components/select"
 import Slider from "@src/@core/components/input/dataEntry/Slider"
 import Switch from "@src/@core/components/input/dataEntry/Switch"
 import TimePicker from "@src/@core/components/input/dataEntry/TimePicker"
@@ -77,14 +77,24 @@ import { Bar } from 'react-chartjs-2'
 const sample110 = {
   root: {
     name: "root",
-    items: ["header", "whatsYourName", "container", "dataSource"],
+    items: ["body"],
     visible: true,
   },
   whatsYourName: {
     id: "whatsYourName",
-    type: "radio",
+    type: "select",
     name: "whatsYourName",
     label: "Whats Your Name buddy? ${wathchMei}",
+    options: [
+      {
+        label: "hi",
+        value: "hi"
+      },
+      {
+        label: "wow",
+        value: "wow"
+      }
+    ],
     // label: (props) => (values) => `hi hi from f(x) ;)`,
     value: "",
     // disabled: (props) => (values) => Valid('wathchMei', '==', '90')(values),
@@ -142,6 +152,16 @@ const sample110 = {
     },
     watch: false
   },
+  "body": {
+    id: "body",
+    type: "fieldset",
+    name: "body",
+    label: "Welcome to New Year 2023 ;)",
+    value: "",
+    visible: true,
+    templateName: "cardContainer",
+    items: ["header", "whatsYourName", "container", "dataSource"],
+  },
   "container": {
     id: "container",
     type: "fieldset",
@@ -173,10 +193,10 @@ const sample110 = {
   },
   "howAreYouThen": {
     id: "howAreYouThen",
-    type: "select",
+    type: "switch",
     name: "howAreYouThen",
     label: "wathchMei",
-    options: "dataSource",
+    options: [],
     visible: true,
     rule: {
       required: "Transfer select hello From Bank is required.",
@@ -259,54 +279,36 @@ const sample110 = {
 };
 
 const EcommerceDashboard = () => {
-  // ** Context
-  const { colors } = useContext(ThemeColors)
 
-  // ** vars
-  const trackBgColor = '#e9ecef'
+  const [data, updateData] = useState()
+
+  useEffect(() => {
+    console.log(data,'data ressssssssssss')
+    axios.get('https://dynamobff.maybanksandbox.com/forms/63a81dfa013c34001c1726ad').then(res => {
+      console.log(res, 'ressssssssssss')
+      updateData(res.data);
+    }).catch(error => {
+      console.log(error,'error ressssssssssss')
+    })
+  }, [])
+
+  if(!data) return null;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle tag='h4'>Vertical Form with Icons</CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Form>
-          <Row>
-            <Dynamo
-              // dataStore={data.dataHelper}
-              dynoName={`data._id`}
-              key={`data._id`}
-              // defaultValues={data.defaultValues}
-              fields={sample110}
-              localFunction={{
-                "callAPI": async ({url, form, item, data}) => {
-                  console.log('brrrrrrr',data);
-                  if(!data) return;
-                  await form.reset();
-                }
-              }}
-            />
-            <Col sm='12' className='mb-1'>
-              <Title />
-              <Select />
-            </Col>
-            <Col sm='12' className='mb-1'>
-              <Switch />
-            </Col>
-            <Col sm='12' className='mb-1'>
-              <Input label="hihi ;)" placeholder="wolalalalal" />
-            </Col>
-            <Col sm='12' className='mb-1'>
-              <Checkbox />
-            </Col>
-            <Col sm='12' className='mb-1'>
-              <Button />
-            </Col>
-          </Row>
-        </Form>
-      </CardBody>
-    </Card>
+    <Dynamo
+      dataStore={data.dataHelper}
+      dynoName={`data._id`}
+      key={`data._id`}
+      defaultValues={data.defaultValues}
+      fields={data.items}
+      localFunction={{
+        "callAPI": async ({ url, form, item, data }) => {
+          console.log('brrrrrrr', data);
+          if (!data) return;
+          await form.reset();
+        }
+      }}
+    />
   )
 
   return (

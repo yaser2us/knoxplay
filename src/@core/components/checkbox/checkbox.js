@@ -1,6 +1,6 @@
 import React from "react"
 import { Checkbox as AntCheckbox } from "antd"
-import "./Checkbox.css"
+import "./style.css"
 
 function Checkbox({item, field, ...rest}) {
 

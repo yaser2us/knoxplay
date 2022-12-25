@@ -1,24 +1,22 @@
 import React from "react"
-import { Radio as AntRadio } from "antd"
-import "./Radio.css"
+import { Select as AntSelect } from "antd"
 
-
-function Radio({ item, field, ...rest }) {
+function Select({ item, field, managedCallback, ...rest }) {
     if (!item) return;
-    const { label, placeholder, name, options } = item;
-    if(!options) return;
+    const { label, placeholder, name, options, defaultValue } = item;
+    if (!options) return;
     const { onChange, value } = field;
-
     return (
         <>
             <label className='form-label' for={name}>
                 {label}
             </label>
             <div className="input-group">
-                <AntRadio.Group
+                <AntSelect
+                    defaultValue={defaultValue}
+                    style={{ width: '100%' }}
                     onChange={onChange}
                     options={options}
-                    value={value}
                 />
             </div>
         </>
@@ -26,5 +24,5 @@ function Radio({ item, field, ...rest }) {
 };
 
 
-export default Radio;
 
+export default Select;
