@@ -1,23 +1,25 @@
 import React from "react"
-import { Select } from "antd"
+import { Select as AntSelect } from "antd"
 
 
 const handleChange = value => {
   console.log(`selected ${value}`)
 }
 
-function Select1() {
-
+function Select({ item, field, managedCallback, ...rest }) {
+  if (!item) return;
+  const { label, placeholder, name } = item;
+  const { onChange, value } = field;
   return (
     <>
-      <label className='form-label' for='nameVerticalIcons'>
-        First Name
+            <label className='form-label' for={name}>
+        {label}
       </label>
       <div className="input-group">
-        <Select
+        <AntSelect
           defaultValue="lucy"
           style={{ width: 120 }}
-          onChange={handleChange}
+          onChange={onChange}
           options={[
             {
               value: "jack",
@@ -80,4 +82,4 @@ function Select1() {
 
 
 
-export default Select1;
+export default Select;

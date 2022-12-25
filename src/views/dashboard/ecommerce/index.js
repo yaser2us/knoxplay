@@ -82,7 +82,7 @@ const sample110 = {
   },
   whatsYourName: {
     id: "whatsYourName",
-    type: "text",
+    type: "radio",
     name: "whatsYourName",
     label: "Whats Your Name buddy? ${wathchMei}",
     // label: (props) => (values) => `hi hi from f(x) ;)`,
@@ -159,6 +159,17 @@ const sample110 = {
     value: "",
     disabled: "fxtriggerBackground()",
     visible: true,
+    "action": {
+      "name": "default",
+      "actionURL": "hi",
+      "actionType": "callAPI",
+      "schema": {
+        "accountId": "whatsYourName",
+        "checkbox": "howAreYouThen",
+        "startDate": "wathchMei",
+        "endDate": "dateSelection.endDate"
+      }
+    }
   },
   "howAreYouThen": {
     id: "howAreYouThen",
@@ -262,14 +273,20 @@ const EcommerceDashboard = () => {
       <CardBody>
         <Form>
           <Row>
-          <Dynamo
-          // dataStore={data.dataHelper}
-          dynoName={`data._id`}
-          key={`data._id`}
-          // defaultValues={data.defaultValues}
-          fields={sample110}
-          localFunction={{}}
-        />
+            <Dynamo
+              // dataStore={data.dataHelper}
+              dynoName={`data._id`}
+              key={`data._id`}
+              // defaultValues={data.defaultValues}
+              fields={sample110}
+              localFunction={{
+                "callAPI": async ({url, form, item, data}) => {
+                  console.log('brrrrrrr',data);
+                  if(!data) return;
+                  await form.reset();
+                }
+              }}
+            />
             <Col sm='12' className='mb-1'>
               <Title />
               <Select />

@@ -1,15 +1,25 @@
 import React from "react"
-import { Checkbox } from "antd"
+import { Checkbox as AntCheckbox } from "antd"
 import "./Checkbox.css"
 
 const onChange = e => {
   console.log(`checked = ${e.target.checked}`)
 }
 
-function Checkbox1() {
+function Checkbox({item, field, ...rest}) {
+
+  if (!item) return;
+  const { label, placeholder } = item;
+  const { onChange, value } = field;
+
   return (
-    <Checkbox onChange={onChange}>Checkbox</Checkbox>
+    <AntCheckbox
+      value={value}
+      onChange={onChange}
+    >
+      {label}
+    </AntCheckbox>
   );
 };
 
-export default Checkbox1;
+export default Checkbox;

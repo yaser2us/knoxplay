@@ -6,11 +6,12 @@ import "./Button.css"
 function Button({ item, managedCallback, ...rest }) {
 
   if (!item) return;
-  const { label, placeholder } = item;
+  const { label, placeholder, disabled } = item;
 
   return (
     <div>
       <AntButton
+        disabled={disabled}
         onClick={() => {
           managedCallback({ item });
         }}

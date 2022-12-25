@@ -4,13 +4,13 @@ import "./Input.css"
 
 function Input({item, field, ...rest}) {
     if(!item) return;
-    const { label, placeholder } = item;
+    const { label, placeholder, name } = item;
     const { onChange, value } = field;
 
     console.log(rest,"restrestrest")
     return (
         <>
-            <label className='form-label' for='nameVerticalIcons'>
+            <label className='form-label' for={name}>
                 {label}
             </label>
             <div className="input-group">
