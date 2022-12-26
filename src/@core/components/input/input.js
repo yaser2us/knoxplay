@@ -2,22 +2,23 @@ import React from "react"
 import { Input as AntInput } from "antd"
 import "./style.css"
 
-function Input({item, field, ...rest}) {
-    if(!item) return;
+function Input({ item, field, error, ...rest }) {
+    if (!item) return;
     const { label, placeholder, name } = item;
     const { onChange, value } = field;
-
-    console.log(rest,"restrestrest")
+    const { message = "" } = (error && error[name]) || { message: false }
+    console.log(rest, "restrestrestinput", error)
     return (
         <>
             <label className='form-label' for={name}>
                 {label}
             </label>
             <div className="input-group">
-                <AntInput 
-                    onChange={onChange} 
+                <AntInput
+                    className={message && "is-invalid"}
+                    onChange={onChange}
                     placeholder={placeholder}
-                    value={value}    
+                    value={value}
                 />
             </div>
         </>

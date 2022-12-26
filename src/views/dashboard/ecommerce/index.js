@@ -73,7 +73,7 @@ import Dynamo from "@src/@core/dyno"
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
 import { Bar } from 'react-chartjs-2'
-
+import mockTest from "./dynoMock.json"
 const sample110 = {
   root: {
     name: "root",
@@ -280,32 +280,47 @@ const sample110 = {
 
 const EcommerceDashboard = () => {
 
-  const [data, updateData] = useState()
+  const [data, updateData] = useState(mockTest)
+
+  const root = 'https://dynamobff.maybanksandbox.com/forms/'
 
   useEffect(() => {
-    console.log(data,'data ressssssssssss')
-    axios.get('https://dynamobff.maybanksandbox.com/forms/63a81dfa013c34001c1726ad').then(res => {
+    console.log(data, 'data ressssssssssss')
+    axios.get(`${root}63a81dfa013c34001c1726ad`).then(res => {
       console.log(res, 'ressssssssssss')
-      updateData(res.data);
+      // updateData(res.data);
     }).catch(error => {
-      console.log(error,'error ressssssssssss')
+      console.log(error, 'error ressssssssssss')
     })
   }, [])
 
-  if(!data) return null;
+  if (!data) return null;
 
   return (
     <Dynamo
+      key={data._id}
+      dynoName={data._id}
       dataStore={data.dataHelper}
-      dynoName={`data._id`}
-      key={`data._id`}
       defaultValues={data.defaultValues}
       fields={data.items}
       localFunction={{
-        "callAPI": async ({ url, form, item, data }) => {
-          console.log('brrrrrrr', data);
-          if (!data) return;
-          await form.reset();
+        "callAPI": async ({ url, form, item, data: formData }) => {
+          console.log('brrrrrrr', formData);
+          const commerce = {
+            data: formData,
+            user: {
+              "isAdmin": true
+            },
+            type: data.name
+          }
+          axios.post(`http://localhost:3033/commerce`, commerce).then(res => {
+            console.log(res, 'ressssssssssss updatedddd ;)')
+            //updateData(res.data);
+          }).catch(error => {
+            console.log(error, 'error ressssssssssss')
+          })
+          // if (!formData) return;
+          // await form.reset();
         }
       }}
     />
