@@ -26,11 +26,11 @@ const VerticalFormIcons = () => {
       <CardBody>
         <Form>
           <Row>
-            <Col sm='12'>
+            <Col sm='12' className='mb-1'>
               <Label className='form-label' for='nameVerticalIcons'>
                 First Name
               </Label>
-              <InputGroup className='input-group-merge mb-1'>
+              <InputGroup className='input-group-merge'>
                 <InputGroupText>
                   <User size={15} />
                 </InputGroupText>

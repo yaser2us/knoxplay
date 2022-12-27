@@ -1,9 +1,19 @@
 // ** React Imports
-import { useContext } from 'react'
-
+import { useEffect, useState } from 'react'
+import axios from "axios";
 // ** Reactstrap Imports
-import { Row, Col } from 'reactstrap'
-
+import {
+  Row,
+  Col,
+  Card,
+  Form,
+  Label,
+  CardBody,
+  CardTitle,
+  CardHeader,
+  InputGroup,
+  InputGroupText
+} from 'reactstrap'
 // ** Context
 import { ThemeColors } from '@src/utility/context/ThemeColors'
 
@@ -20,65 +30,406 @@ import CardTransactions from '@src/views/ui-elements/cards/advance/CardTransacti
 import ProfitLineChart from '@src/views/ui-elements/cards/statistics/ProfitLineChart'
 import CardBrowserStates from '@src/views/ui-elements/cards/advance/CardBrowserState'
 
-import Input from "@components/input"
+// **AntD Components
+//General
+import Button from '@src/@core/components/input/general/Button'
+
+//Layout
+import Title from '@src/@core/components/input/general/Title'
+import { Divider } from 'antd'
+import Grid from "@src/@core/components/input/layout/Grid"
+import Layout from "@src/@core/components/input/layout/Layout"
+import { Space } from 'antd'
+
+//Navigation
+import Anchor from "@src/@core/components/input/navigation/Anchor"
+import Breadcrumb from "@src/@core/components/input/navigation/Breadcrumb"
+import Dropdown from "@src/@core/components/input/navigation/Dropdown"
+import Menu from "@src/@core/components/input/navigation/Menu"
+import Pagination from "@src/@core/components/input/navigation/Pagination"
+import Steps from "@src/@core/components/input/navigation/Steps"
+
+//Data Entry
+import AutoComplete from "@src/@core/components/input/dataEntry/AutoComplete"
+import Cascader from "@src/@core/components/input/dataEntry/Cascader"
+import Checkbox from "@src/@core/components/input/dataEntry/Checkbox"
+import DatePicker from "@src/@core/components/input/dataEntry/DatePicker"
+// import {Form as MyForm} from "@src/@core/components/input/dataEntry/Form"
+import { Input } from "@src/@core/components/input"
+import InputNumber from "@src/@core/components/input/dataEntry/InputNumber"
+import Mentions from "@src/@core/components/input/dataEntry/Mentions"
+import Radio from "@src/@core/components/input/dataEntry/Radio"
+import Rate from "@src/@core/components/input/dataEntry/Rate"
+import { Select } from "@src/@core/components/select"
+import Slider from "@src/@core/components/input/dataEntry/Slider"
+import Switch from "@src/@core/components/input/dataEntry/Switch"
+import TimePicker from "@src/@core/components/input/dataEntry/TimePicker"
+import Transfer from "@src/@core/components/input/dataEntry/Transfer"
+import TreeSelect from "@src/@core/components/input/dataEntry/TreeSelect"
+import Upload from "@src/@core/components/input/dataEntry/Upload"
+import Dynamo from "@src/@core/dyno"
+
 // ** Styles
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
+import { Bar } from 'react-chartjs-2'
+import mockTest from "./dynoMock.json"
+const sample110 = {
+  root: {
+    name: "root",
+    items: ["body"],
+    visible: true,
+  },
+  whatsYourName: {
+    id: "whatsYourName",
+    type: "select",
+    name: "whatsYourName",
+    label: "Whats Your Name buddy? ${wathchMei}",
+    options: [
+      {
+        label: "hi",
+        value: "hi"
+      },
+      {
+        label: "wow",
+        value: "wow"
+      }
+    ],
+    // label: (props) => (values) => `hi hi from f(x) ;)`,
+    value: "",
+    // disabled: (props) => (values) => Valid('wathchMei', '==', '90')(values),
+    visible: true,
+    rule: {
+      required: "I dont know your name yet hmmmmm.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: 3,
+        message: "min 3",
+      },
+      maxLength: {
+        value: 3,
+        message: "max 3",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+      validate212121: {
+        positiveNumber: "only positive number pls yeah :)",
+        lessThanHundred: "cant be less than hundred ;)",
+      },
+      validateCompse: {
+        letsComposeValidation: {
+          positiveNumber: "only positive number pls yeah :)",
+          lessThanHundred: "cant be less than hundred ;)"
+        }
+      },
+      deps: ["wathchMei"],
+      validate2121: {
+        positiveNumber: (value) => {
+          console.log(value, 'positiveNumber validatevalidatevalidatevalidate')
+          const result = parseFloat(value) > 0;
+          return result && result || "errororororororororoo"
+        },
+        lessThanHundred: (value) => {
+          console.log(value, 'lessThanHundred validatevalidatevalidatevalidate')
+          return parseFloat(value) < 200 || "less than 200"
+        },
+      },
+      validate1234: [
+        {
+          messages: "",
+          validation: "fxPositiveNumber"
+        }
+      ]
+    },
+    watch: false
+  },
+  "body": {
+    id: "body",
+    type: "fieldset",
+    name: "body",
+    label: "Welcome to New Year 2023 ;)",
+    value: "",
+    visible: true,
+    templateName: "cardContainer",
+    items: ["header", "whatsYourName", "container", "dataSource"],
+  },
+  "container": {
+    id: "container",
+    type: "fieldset",
+    name: "container",
+    label: "Fieldset",
+    value: "",
+    visible: true,
+    items: ["wathchMei", "howAreYouThen", "submitME"],
+  },
+  submitME: {
+    id: "submitME",
+    type: "button",
+    name: "submitME",
+    label: "Button",
+    value: "",
+    disabled: "fxtriggerBackground()",
+    visible: true,
+    "action": {
+      "name": "default",
+      "actionURL": "hi",
+      "actionType": "callAPI",
+      "schema": {
+        "accountId": "whatsYourName",
+        "checkbox": "howAreYouThen",
+        "startDate": "wathchMei",
+        "endDate": "dateSelection.endDate"
+      }
+    }
+  },
+  "howAreYouThen": {
+    id: "howAreYouThen",
+    type: "switch",
+    name: "howAreYouThen",
+    label: "wathchMei",
+    options: [],
+    visible: true,
+    rule: {
+      required: "Transfer select hello From Bank is required.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: null,
+        message: "",
+      },
+      maxLength: {
+        value: null,
+        message: "",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+    },
+    preCondition: [
+
+    ]
+  },
+  "header": {
+    id: "header",
+    type: "label",
+    name: "header",
+    label: "Example of Watch & DataSource",
+    value: "Value",
+    visible: true,
+  },
+  "dataSource": {
+    id: "dataSource",
+    type: "dataSource",
+    name: "dataSource",
+    label: "wathchMei",
+    value: "Value",
+    visible: true,
+    watch: true
+  },
+  wathchMei: {
+    id: "wathchMei",
+    type: "text",
+    name: "wathchMei",
+    label: "watch me ;)",
+    value: "",
+    valueType: "",
+    visible: true,
+    disabled: false,
+    rule: {
+      required: "Transfer From Bank is required.",
+      min: {
+        value: null,
+        message: "",
+      },
+      max: {
+        value: null,
+        message: "",
+      },
+      minLength: {
+        value: null,
+        message: "",
+      },
+      maxLength: {
+        value: null,
+        message: "",
+      },
+      pattern: {
+        value: "",
+        message: "",
+      },
+    },
+    watch: true
+  },
+};
 
 const EcommerceDashboard = () => {
-  // ** Context
-  const { colors } = useContext(ThemeColors)
 
-  // ** vars
-  const trackBgColor = '#e9ecef'
+  const [data, updateData] = useState(mockTest)
+
+  const root = 'https://dynamobff.maybanksandbox.com/forms/'
+
+  useEffect(() => {
+    console.log(data, 'data ressssssssssss')
+    axios.get(`${root}63a81dfa013c34001c1726ad`).then(res => {
+      console.log(res, 'ressssssssssss')
+      // updateData(res.data);
+    }).catch(error => {
+      console.log(error, 'error ressssssssssss')
+    })
+  }, [])
+
+  if (!data) return null;
+
+  return (
+    <Dynamo
+      key={data._id}
+      dynoName={data._id}
+      dataStore={data.dataHelper}
+      defaultValues={data.defaultValues}
+      fields={data.items}
+      localFunction={{
+        "callAPI": async ({ url, form, item, data: formData }) => {
+          console.log('brrrrrrr', formData);
+          const commerce = {
+            data: formData,
+            user: {
+              "isAdmin": true
+            },
+            type: data.name
+          }
+          axios.post(`http://localhost:3033/commerce`, commerce).then(res => {
+            console.log(res, 'ressssssssssss updatedddd ;)')
+            //updateData(res.data);
+          }).catch(error => {
+            console.log(error, 'error ressssssssssss')
+          })
+          // if (!formData) return;
+          // await form.reset();
+        }
+      }}
+    />
+  )
 
   return (
     <div id='dashboard-ecommerce'>
-      <Row className='match-height'>
-        <Col xl='4' md='6' xs='12'>
-          {/* Put components after here to see examples all */}
-          <Input/>
-          <CardMedal />
-        </Col>
-        <Col xl='8' md='6' xs='12'>
-          <StatsCard cols={{ xl: '3', sm: '6' }} />
-        </Col>
-      </Row>
-      <Row className='match-height'>
-        <Col lg='4' md='12'>
-          <Row className='match-height'>
-            <Col lg='6' md='3' xs='6'>
-              <OrdersBarChart warning={colors.warning.main} />
-            </Col>
-            <Col lg='6' md='3' xs='6'>
-              <ProfitLineChart info={colors.info.main} />
-            </Col>
-            <Col lg='12' md='6' xs='12'>
-              <Earnings success={colors.success.main} />
-            </Col>
-          </Row>
-        </Col>
-        <Col lg='8' md='12'>
-          <RevenueReport primary={colors.primary.main} warning={colors.warning.main} />
-        </Col>
-      </Row>
-      <Row className='match-height'>
-        <Col lg='8' xs='12'>
-          <CompanyTable />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardMeetup />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardBrowserStates colors={colors} trackBgColor={trackBgColor} />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <GoalOverview success={colors.success.main} />
-        </Col>
-        <Col lg='4' md='6' xs='12'>
-          <CardTransactions />
-        </Col>
-      </Row>
+
+      <Space direction="vertical">
+
+
+        <h1>**********[GENERAL]**********</h1>
+
+        <h1>Button</h1>
+        <Button />
+
+        <h1>Title</h1>
+        <Title />
+
+
+
+        <h1>**********[LAYOUT]**********</h1>
+        <h1>Divider</h1>
+        <Divider />
+
+        <h1>Grid</h1>
+        <Grid />
+
+        <h1>Layout</h1>
+        <Layout />
+
+        <h1>Space</h1>
+
+
+        <h1>**********[NAVIGATION]**********</h1>
+        <h1>Anchor</h1>
+        <Anchor />
+
+        <h1>Breadcrumb</h1>
+        <Breadcrumb />
+
+        <h1>Dropdown</h1>
+        <Dropdown />
+
+        <h1>Menu</h1>
+        <Menu />
+
+        <h1>Pagination</h1>
+        <Pagination />
+
+        <h1>Steps</h1>
+        <Steps />
+
+        <h1>**********[DATA ENTRY]**********</h1>
+        <h1>Auto Complete</h1>
+        <AutoComplete />
+
+        <h1>Cascader</h1>
+        <Cascader />
+
+        <h1>Checkbox</h1>
+        <Checkbox />
+
+        <h1>Date Picker</h1>
+        <DatePicker />
+
+        <h1>Form</h1>
+        <Form />
+
+        <h1>Input</h1>
+        <Input />
+
+        <h1>Input Number</h1>
+        <InputNumber />
+
+        <h1>Mentions</h1>
+        <Mentions />
+
+        <h1>Radio</h1>
+        <Radio />
+
+        <h1>Rate</h1>
+        <Rate />
+
+        <h1>Select</h1>
+        <Select />
+
+        <h1>Slider</h1>
+        <Slider />
+
+        <h1>Switch</h1>
+        <Switch />
+
+        <h1>TimePicker</h1>
+        <TimePicker />
+
+        <h1>Transfer</h1>
+        <Transfer />
+
+        <h1>TreeSelect</h1>
+        <TreeSelect />
+
+        <h1>Upload</h1>
+        <Upload />
+
+
+
+
+      </Space>
     </div>
   )
 }
